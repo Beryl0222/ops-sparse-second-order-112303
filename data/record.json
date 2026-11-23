@@ -1,0 +1,224 @@
+{
+  "parameters": {
+    "x": [
+      0.8,
+      0.0,
+      0.5,
+      -0.4
+    ],
+    "z": [
+      0.1,
+      2.0
+    ]
+  },
+  "views": {
+    "p": [
+      "x",
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "tail": [
+      "x",
+      [
+        2,
+        3
+      ]
+    ],
+    "mirror": [
+      "x",
+      [
+        2,
+        1,
+        0
+      ]
+    ],
+    "a": [
+      "z",
+      [
+        0,
+        1
+      ]
+    ]
+  },
+  "residuals": [
+    {
+      "id": "pair",
+      "expr": [
+        "product",
+        [
+          "p",
+          0
+        ],
+        [
+          "tail",
+          0
+        ]
+      ],
+      "loss": "square",
+      "weight": 2
+    },
+    {
+      "id": "gate",
+      "expr": [
+        "positive_part",
+        [
+          "affine",
+          [
+            [
+              1,
+              [
+                "mirror",
+                0
+              ]
+            ],
+            [
+              -1,
+              [
+                "a",
+                0
+              ]
+            ]
+          ],
+          -0.2
+        ]
+      ],
+      "loss": "square",
+      "weight": 1
+    },
+    {
+      "id": "side",
+      "expr": [
+        "affine",
+        [
+          [
+            1,
+            [
+              "tail",
+              1
+            ]
+          ],
+          [
+            0.5,
+            [
+              "a",
+              1
+            ]
+          ]
+        ],
+        0
+      ],
+      "loss": "square",
+      "weight": 0.4
+    },
+    {
+      "id": "cancel",
+      "expr": [
+        "product",
+        [
+          "p",
+          0
+        ],
+        [
+          "mirror",
+          0
+        ]
+      ],
+      "loss": "square",
+      "weight": -2
+    }
+  ],
+  "states": [
+    {
+      "id": "left",
+      "x_index2": 0.2,
+      "enabled": [
+        "pair",
+        "gate",
+        "side",
+        "cancel"
+      ]
+    },
+    {
+      "id": "edge",
+      "x_index2": 0.3,
+      "enabled": [
+        "pair",
+        "gate",
+        "side",
+        "cancel"
+      ]
+    },
+    {
+      "id": "right",
+      "x_index2": 0.6,
+      "enabled": [
+        "pair",
+        "gate",
+        "side"
+      ]
+    }
+  ],
+  "requests": {
+    "vars": [
+      [
+        "x",
+        0
+      ],
+      [
+        "x",
+        2
+      ],
+      [
+        "x",
+        3
+      ],
+      [
+        "z",
+        0
+      ]
+    ],
+    "directions": [
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "coordinates": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  "scale": {
+    "variables": 180000,
+    "residuals": 260000,
+    "max_local_degree": 24,
+    "scratch_bytes": 33554432
+  }
+}
