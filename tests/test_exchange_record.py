@@ -12,4 +12,4 @@ class ExchangeRecordTests(unittest.TestCase):
         self.assertTrue(record["views"]["p"][1][2] == record["views"]["tail"][1][0] == record["views"]["mirror"][1][0])
         self.assertTrue(np.isclose(record["states"][1]["x_index2"] - record["parameters"]["z"][0] - 0.2,0,atol=1e-12))
         self.assertTrue(record["residuals"][0]["weight"] == -record["residuals"][-1]["weight"] and "cancel" not in record["states"][-1]["enabled"])
-        self.assertTrue(record["requests"]["directions"][-1] == [0,0,0,0])
+        self.assertTrue(record["requests"]["directions"][-1] == [0,0,0,0] and record["requests"]["directions"][-2] == [0,1,0,1])
